@@ -1,13 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="ro"> <!-- Schimbat în română pentru SEO local -->
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <!-- Adaugă un favicon cu un tort aici -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Sweet Cakes by Gabriella | Torturi Artizanale Târgu Mureș</title>
+    <meta name="description" content="Torturi artizanale și deserturi premium în Târgu Mureș. Sweet Cakes by Gabriella creează experiențe dulci personalizate pentru nunți, botezuri și evenimente speciale." />
+    <meta name="keywords" content="torturi targu mures, tort nunta targu mures, cofetarie artizanala, sweet cakes gabriella, deserturi personalizate" />
+    
+    <!-- Open Graph / Facebook (Important pentru că ai link de Facebook în footer) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sweet Cakes by Gabriella | Arta Dulcelui" />
+    <meta property="og:description" content="Transformăm visurile tale în realitate dulce. Comandă torturi personalizate în Târgu Mureș." />
+    <meta property="og:image" content="/og-image.jpg" /> <!-- O poză frumoasă cu un tort pentru social media -->
+
+    <!-- Import Google Fonts (Playfair pentru Serif, Montserrat pentru Sans, Great Vibes pentru Script) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+      /* Prevenim scroll-ul orizontal care mai apare la animațiile motion */
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background-color: #fffcf9; /* Culoarea de fundal crem pe care am ales-o */
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

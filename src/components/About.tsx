@@ -1,8 +1,7 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, Variants } from "motion/react";
 import { useRef } from "react";
-import { FloatingShapes } from "./FloatingShapes";
-import { Sparkles, Heart, Star } from "lucide-react";
-import AboutImage from "../assets/images/regenerated_image_1778843329681.jpg";
+import { Sparkles, Heart, Star, Award } from "lucide-react";
+import AboutImage from "../assets/images/logo.jpg";
 
 export function About() {
   const ref = useRef(null);
@@ -11,137 +10,133 @@ export function About() {
     offset: ["start end", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [150, -150]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+  // Parallax fin pentru elementele de profunzime
+  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+  const rotateImage = useTransform(scrollYProgress, [0, 1], [-5, 5]);
 
   return (
-    <section id="about" ref={ref} className="py-32 relative overflow-hidden bg-gradient-to-b from-[#fbf9f4] to-[#f7f2ea]">
-      <FloatingShapes />
+    <section id="about" ref={ref} className="py-32 relative overflow-hidden bg-[#fffcf9]">
       
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+      {/* Background Decorativ - Subtil & Elegant */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
         <motion.div 
           style={{ y: y1 }}
-          className="absolute -top-24 -right-24 w-[500px] h-[500px] bg-pastel-cream rounded-full mix-blend-multiply filter blur-[100px] opacity-40"
+          className="absolute -top-24 -right-24 w-125 h-125 bg-brand-magenta/10 rounded-full blur-[120px]"
         />
         <motion.div 
           style={{ y: y2 }}
-          className="absolute -bottom-24 -left-24 w-[500px] h-[500px] bg-pastel-pink rounded-full mix-blend-multiply filter blur-[100px] opacity-40"
+          className="absolute bottom-0 left-0 w-125 h-125 bg-brand-dark/5 rounded-full blur-[100px]"
         />
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+          
+          {/* Partea Stângă: Imaginea & Badge-uri */}
           <motion.div
-            initial={{ opacity: 0, x: -100, rotate: -10 }}
-            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, type: "spring" as any, bounce: 0.4 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
             className="w-full lg:w-1/2 relative"
           >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
+            <div className="relative max-w-md mx-auto">
+              {/* Rama decorativă din spate */}
               <motion.div 
-                style={{ rotate }}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-gradient-to-br from-pastel-blue/30 to-pastel-pink/30 rounded-[5rem] transform scale-105 blur-sm"
-                aria-hidden="true"
+                style={{ rotate: rotateImage }}
+                className="absolute inset-0 border-2 border-brand-magenta/20 rounded-[3rem] translate-x-6 translate-y-6 -z-10"
               />
-              <div className="relative z-10 w-full h-full p-4">
+              
+              <div className="relative z-10 bg-white p-4 rounded-[3.5rem] shadow-2xl shadow-brand-dark/5 overflow-hidden group">
                 <motion.img
-                  whileHover={{ scale: 1.05, rotate: 2 }}
-                  transition={{ duration: 0.8, type: "spring" as any }}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 1, ease: "circOut" }}
                   src={AboutImage}
-                  alt="Gabriella, fondatoarea Sweet Cakes"
-                  className="w-full h-full object-cover rounded-[4rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] border-8 border-white"
-                  referrerPolicy="no-referrer"
+                  alt="Gabriella - Fondator Sweet Cakes"
+                  className="w-full h-full object-cover rounded-[2.8rem]"
                 />
               </div>
               
-              {/* Floating badges */}
+              {/* Floating "Quality Seal" */}
               <motion.div
-                animate={{ y: [-20, 20, -20], rotate: [-5, 5, -5] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-10 -right-10 glass-card p-6 rounded-3xl z-20 flex items-center gap-5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-2 border-white/80 backdrop-blur-xl"
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-8 -right-8 bg-brand-dark text-white p-8 rounded-4xl shadow-2xl z-20 border border-white/10"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-pastel-rose to-pastel-pink rounded-2xl flex items-center justify-center text-white font-serif text-2xl font-black shadow-lg transform -rotate-6">
-                  10+
-                </div>
-                <div>
-                  <div className="font-serif text-xl font-bold text-brand-dark leading-none mb-1">Ani de</div>
-                  <div className="font-sans text-sm font-black text-pastel-rose tracking-widest uppercase">Măiestrie</div>
+                <div className="flex flex-col items-center">
+                   <Award className="text-brand-magenta mb-2" size={24} />
+                   <span className="font-serif italic text-2xl font-bold">10+</span>
+                   <span className="text-[9px] uppercase tracking-widest font-black opacity-50">Ani de Artă</span>
                 </div>
               </motion.div>
 
+              {/* Floating detail badge */}
               <motion.div
-                animate={{ y: [20, -20, 20], rotate: [5, -5, 5] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -top-10 -left-10 glass-card p-4 rounded-2xl z-20 shadow-xl border-2 border-white/80 backdrop-blur-xl"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -top-6 -left-6 bg-white py-3 px-6 rounded-2xl shadow-xl z-20 flex items-center gap-3 border border-brand-dark/5"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-pastel-blue/20 rounded-full flex items-center justify-center text-pastel-blue">
-                    <Star size={20} fill="currentColor" />
-                  </div>
-                  <span className="font-sans font-bold text-brand-dark">Calitate Premium</span>
+                <div className="w-8 h-8 bg-brand-magenta/10 rounded-full flex items-center justify-center text-brand-magenta">
+                  <Star size={16} fill="currentColor" />
                 </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-brand-dark">Calitate Premium</span>
               </motion.div>
             </div>
           </motion.div>
 
+          {/* Partea Dreaptă: Text & Poveste */}
           <motion.div
-            initial={{ opacity: 0, x: 100 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, delay: 0.2, type: "spring" as any }}
-            className="w-full lg:w-1/2 relative"
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="w-full lg:w-1/2"
           >
-            {/* Vertical Rail Text */}
-            <div className="absolute -right-4 top-20 hidden xl:block">
-              <span className="text-[10px] font-bold text-brand-dark/20 uppercase tracking-[0.8em] whitespace-nowrap rotate-90 origin-right">
-                ESTABLISHED 2024 • ARTISAN BAKERY
-              </span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-10 bg-brand-magenta" />
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-brand-dark/40">Povestea Noastră</span>
             </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-micro mb-6 inline-block px-4 py-1.5 border-soft rounded-full bg-white/40 backdrop-blur-md"
-            >
-              Măiestrie & Pasiune
-            </motion.div>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-brand-dark mb-6 md:mb-8 leading-[1.15] tracking-tighter">
-              Coapte cu <span className="text-brand-magenta font-script italic">dragoste</span>, <br />
+            <h2 className="font-serif text-5xl md:text-7xl font-bold text-brand-dark mb-10 leading-[0.95] tracking-tighter">
+              Creat cu <span className="text-brand-magenta font-script italic lowercase">dragoste</span>, <br />
               <span className="relative">
-                create cu pasiune
+                servit cu emoție.
                 <motion.div 
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
-                  transition={{ duration: 1, delay: 1 }}
+                  transition={{ duration: 1.5, delay: 1 }}
                   className="absolute -bottom-2 left-0 h-1 bg-brand-magenta/20 rounded-full"
                 />
               </span>
             </h2>
-            <div className="space-y-8 font-sans text-brand-dark/70 text-lg md:text-xl leading-relaxed">
-              <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-brand-magenta first-letter:mr-4 first-letter:float-left first-letter:leading-none">
-                Bună, sunt Gabriella. Atelierul meu este dedicat exclusiv dulciurilor la comandă, transformând ideile și visurile tale în realitate dulce.
+
+            <div className="space-y-6 font-sans text-brand-dark/60 text-lg leading-relaxed italic">
+              <p>
+                <span className="text-4xl font-serif font-bold text-brand-magenta mr-2 not-italic">Bună,</span> 
+                sunt Gabriella. Atelierul meu s-a născut dintr-o pasiune infinită pentru frumos și pentru momentele acelea speciale care rămân tipărite în suflet.
               </p>
               <p>
-                Fiecare tort, candy bar sau prăjitură este personalizată în detaliu. Folosim doar cele mai fine ingrediente – unt premium, ciocolată belgiană veritabilă și fructe proaspete.
+                Nu fac doar torturi; plămădesc experiențe senzoriale. Folosesc doar ingrediente pe care le-aș pune la masa familiei mele: unt maturat, fructe proaspete și ciocolată belgiană de cea mai înaltă calitate.
               </p>
             </div>
             
+            {/* Secțiunea Semnătură */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="mt-12 flex items-center gap-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="mt-16 flex items-center gap-8"
             >
-              <div className="h-px flex-1 bg-gradient-to-r from-brand-dark/20 to-transparent" />
-              <div className="flex flex-col items-center">
-                <span className="font-script text-4xl text-brand-magenta/60 -rotate-2 select-none">Gabriella</span>
-                <span className="text-xs font-bold text-brand-dark/30 uppercase tracking-[0.2em] mt-1">Fondator & Cofetar</span>
+              <div className="flex flex-col">
+                <span className="font-script text-4xl text-brand-magenta">Gabriella</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-dark/30 mt-2">Fondator & Master Pastry Chef</span>
+              </div>
+              <div className="h-px flex-1 bg-brand-dark/5" />
+              <div className="flex gap-2">
+                {[...Array(3)].map((_, i) => (
+                  <Heart key={i} size={14} className="text-brand-magenta/20 fill-brand-magenta/20" />
+                ))}
               </div>
             </motion.div>
           </motion.div>

@@ -1,107 +1,141 @@
-import { Instagram, Facebook, Heart } from "lucide-react";
+import { Instagram, Facebook, Heart, MapPin, Phone } from "lucide-react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-brand-dark text-white py-16 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-10">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-pastel-rose rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-pastel-blue rounded-full blur-3xl" />
+    <footer className="bg-brand-dark text-white py-20 relative overflow-hidden">
+      {/* Background Decorativ Subtil */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-5">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-magenta rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
       </div>
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-16">
-          <div className="text-center md:text-left">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
+
+          {/* Coloana 1: Logo & Info */}
+          <div className="flex flex-col items-center md:items-start space-y-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="mb-6"
             >
-              <Link 
-                to="/" 
-                className="flex flex-col items-center md:items-start leading-none"
+              <Link
+                to="/"
+                className="flex flex-col items-center leading-none group"
               >
-                <span className="font-script text-4xl text-brand-magenta -mb-1">Sweet</span>
-                <span className="font-sans text-base font-bold text-brand-teal tracking-[0.3em] uppercase">Cakes</span>
-                <span className="font-script text-lg text-brand-teal mt-1">by Gabriella</span>
+                {/* "Sweet" - Micșorat de la 3xl/4xl la 2xl/3xl */}
+                <span className="font-script text-2xl sm:text-3xl text-brand-magenta transition-transform group-hover:scale-105">
+                  Sweet
+                </span>
+
+                {/* Containerul pentru "Cakes" - Am pus -mt-2 pentru a le apropia și mai mult */}
+                <div className="flex items-center gap-1 -mt-2">
+                  {/* Liniile laterale - Micșorate de la w-3 la w-2 */}
+                  <div className="h-px w-2 bg-brand-teal/30" />
+
+                  {/* "Cakes" - Micșorat la 9px/10px */}
+                  <span className="font-sans text-[9px] sm:text-[10px] font-black text-brand-teal tracking-[0.3em] uppercase">
+                    Cakes
+                  </span>
+
+                  <div className="h-px w-2 bg-brand-teal/30" />
+                </div>
+
+                {/* "by Gabriella" - Micșorat de la 9px la 8px */}
+                <span className="font-sans text-[8px] text-brand-dark/40 uppercase tracking-widest mt-0.5">
+                  by Gabriella
+                </span>
               </Link>
             </motion.div>
-            <p className="font-sans text-white/60 max-w-xs mx-auto md:mx-0 leading-relaxed">
-              Atelierul nostru transformă visurile tale în realitate dulce, folosind doar cele mai fine ingrediente și multă pasiune.
+
+            <p className="text-sm text-white/50 leading-relaxed text-center md:text-left max-w-xs">
+              Transformăm ingrediente simple în amintiri de neuitat. Fiecare tort este o poveste artizanală creată special pentru tine.
             </p>
+
+            <div className="flex flex-col space-y-3 pt-2">
+              <a href="tel:+40755050706" className="flex items-center gap-3 text-white/60 hover:text-brand-magenta transition-colors text-sm">
+                <Phone size={16} /> 0755 050 706
+              </a>
+              <div className="flex items-center gap-3 text-white/60 text-sm">
+                <MapPin size={16} /> Târgu Mureș, România
+              </div>
+            </div>
           </div>
-          
-          <div className="text-center">
-            <h3 className="font-serif text-xl font-bold mb-6 text-pastel-rose">Navigare Rapidă</h3>
-            <nav className="flex flex-col space-y-4" aria-label="Navigare subsol">
+
+          {/* Coloana 2: Navigare */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-xs uppercase tracking-[0.3em] font-bold mb-8 text-brand-magenta">Navigare</h3>
+            <nav className="flex flex-col space-y-4 items-center">
               {[
                 { name: 'Acasă', href: '/' },
-                { name: 'Torturi', href: '/#cakes' },
-                { name: 'Despre Noi', href: '/#about' },
-                { name: 'Galerie', href: '/#gallery' },
+                { name: 'Colecție Torturi', href: '/#cakes' },
+                { name: 'Povestea Noastră', href: '/#about' },
+                { name: 'Galerie Foto', href: '/#gallery' },
                 { name: 'Contact', href: '/#contact' }
               ].map((link) => (
-                <Link 
+                <Link
                   key={link.name}
                   to={link.href}
-                  className="font-sans text-white/70 hover:text-pastel-rose transition-colors focus:outline-none focus:text-pastel-rose focus:underline underline-offset-4"
-                  aria-label={`Mergi la ${link.name}`}
+                  className="text-sm text-white/60 hover:text-white transition-all relative group"
                 >
                   {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-brand-magenta transition-all group-hover:w-full" />
                 </Link>
               ))}
             </nav>
           </div>
 
-          <div className="text-center md:text-right">
-            <h3 className="font-serif text-xl font-bold mb-6 text-pastel-rose">Urmărește-ne</h3>
-            <div className="flex justify-center md:justify-end space-x-6 mb-8">
-              <motion.a 
-                whileHover={{ y: -5, scale: 1.1 }}
-                href="#" 
-                className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-magenta hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-brand-magenta" 
-                aria-label="Instagram"
-              >
-                <Instagram size={24} />
-              </motion.a>
-              <motion.a 
-                whileHover={{ y: -5, scale: 1.1 }}
-                href="https://www.facebook.com/SweetCakesByGabriella" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-magenta hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-brand-magenta" 
-                aria-label="Facebook"
-              >
-                <Facebook size={24} />
-              </motion.a>
+          {/* Coloana 3: Social & Program */}
+          <div className="flex flex-col items-center md:items-end">
+            <h3 className="text-xs uppercase tracking-[0.3em] font-bold mb-8 text-brand-magenta">Social Media</h3>
+            <div className="flex space-x-4 mb-10">
+              {[
+                { icon: <Facebook size={20} />, url: 'https://www.facebook.com/p/Sweet-Cakes-by-Gabriella-100063574656863/?locale=ro_RO', label: 'Facebook' },
+              ].map((social, i) => (
+                <motion.a
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-brand-magenta hover:bg-brand-magenta transition-all duration-300"
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
             </div>
-            <div className="font-sans text-white/60 space-y-2">
-              <p>Luni - Vineri: 09:00 - 18:00</p>
-              <p>Sâmbătă: 10:00 - 14:00</p>
+
+            <div className="text-center md:text-right space-y-2">
+              <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Program Atelier</p>
+              <p className="text-sm text-white/60 italic">Luni — Vineri: 09:00 - 18:00</p>
+              <p className="text-sm text-white/60 italic">Sâmbătă: 10:00 - 14:00</p>
             </div>
           </div>
         </div>
-        
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <p className="font-sans text-sm text-white/40 flex items-center gap-2">
-              &copy; {new Date().getFullYear()} Sweet Cakes by Gabriella. Creat cu <Heart size={14} className="text-pastel-rose fill-pastel-rose" /> pentru momente dulci.
+
+        {/* Bottom Bar */}
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-center md:text-left">
+            <p className="text-[10px] text-white/30 tracking-wide uppercase">
+              &copy; {currentYear} Sweet Cakes by Gabriella. Creat cu <Heart size={10} className="inline-block text-brand-magenta fill-brand-magenta mx-1" /> pentru momente dulci.
             </p>
-            <p className="font-sans text-xs text-white/30">
-              Creat și întreținut de <a href="https://invatam-impreuna.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-pastel-rose hover:underline">Mera Alin</a>
+            <p className="text-[9px] text-white/20 mt-1 uppercase tracking-widest">
+              Digital Experience by <a href="#" className="hover:text-brand-magenta transition-colors">Mera Alin</a>
             </p>
           </div>
-          <div className="flex gap-8 text-xs font-sans text-white/30 tracking-widest uppercase">
-            <Link to="/politica-de-confidentialitate" className="hover:text-white transition-colors focus:outline-none focus:text-white">Politica de Confidențialitate</Link>
-            <Link to="/politica-cookies" className="hover:text-white transition-colors focus:outline-none focus:text-white">Politica Cookies</Link>
-            <Link to="/termeni-si-conditii" className="hover:text-white transition-colors focus:outline-none focus:text-white">Termeni și Condiții</Link>
+
+          <div className="flex gap-6 text-[10px] font-bold tracking-tighter text-white/30 uppercase">
+            <Link to="/politica-de-confidentialitate" className="hover:text-white transition-colors">Confidențialitate</Link>
+            <Link to="/politica-cookies" className="hover:text-white transition-colors">Cookies</Link>
+            <Link to="/termeni-si-conditii" className="hover:text-white transition-colors">Termeni</Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

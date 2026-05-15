@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import React, { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import GalleryImage3 from "../assets/images/regenerated_image_1778844885045.jpg";
+import GalleryImage3 from "../assets/images/tort1.jpg";
 
 interface GalleryImage {
   id: number;
@@ -100,19 +100,19 @@ export function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-24 relative overflow-hidden bg-gradient-to-b from-[#fbf9f4] to-[#f7f2ea]">
+    <section id="gallery" className="py-24 relative overflow-hidden bg-linear-to-b from-[#fbf9f4] to-brand-light">
       {/* 3D Decorative Elements */}
       <motion.div 
         animate={{ y: [0, -40, 0], rotate: [0, 45, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-40 right-10 w-32 h-32 bg-gradient-to-br from-pastel-pink to-pastel-rose rounded-3xl shadow-[15px_15px_40px_rgba(255,182,193,0.6)] opacity-60 z-0"
+        className="absolute top-40 right-10 w-32 h-32 bg-linear-to-br from-pastel-pink to-pastel-rose rounded-3xl shadow-[15px_15px_40px_rgba(255,182,193,0.6)] opacity-60 z-0"
         style={{ borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%' }}
         aria-hidden="true"
       />
       <motion.div 
         animate={{ y: [0, 50, 0], rotate: [0, -30, 0], x: [0, -20, 0] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-tr from-pastel-blue to-pastel-lavender rounded-full shadow-[15px_15px_50px_rgba(137,207,240,0.5)] opacity-50 z-0"
+        className="absolute bottom-20 left-10 w-40 h-40 bg-linear-to-tr from-pastel-blue to-pastel-lavender rounded-full shadow-[15px_15px_50px_rgba(137,207,240,0.5)] opacity-50 z-0"
         aria-hidden="true"
       />
       <motion.div 
@@ -208,7 +208,7 @@ export function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark/95 backdrop-blur-xl p-4 perspective-1000" 
+            className="fixed inset-0 z-60 flex items-center justify-center bg-brand-dark/95 backdrop-blur-xl p-4 perspective-1000" 
             onClick={() => setSelectedIndex(null)}
             role="dialog"
             aria-modal="true"

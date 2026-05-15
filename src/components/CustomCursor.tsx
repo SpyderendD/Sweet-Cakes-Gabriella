@@ -57,7 +57,7 @@ export function CustomCursor() {
   }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
+    <div className="fixed inset-0 pointer-events-none z-9999 hidden md:block">
       {/* Inner dot */}
       <motion.div
         className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full mix-blend-difference"

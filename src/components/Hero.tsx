@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
-import { ChevronDown, Sparkles, Star, Heart } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 
 export function Hero() {
   const mouseX = useMotionValue(0);
@@ -23,7 +23,7 @@ export function Hero() {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-b from-[#fbf9f4] to-[#f7f2ea]"
+      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-linear-to-b from-[#fbf9f4] to-brand-light"
     >
       {/* Background blobs with parallax */}
       <motion.div 
@@ -96,7 +96,7 @@ export function Hero() {
                 Creează-ți Tortul <Heart size={20} className="fill-white" />
               </span>
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
               />
             </motion.a>
             <motion.a
@@ -114,7 +114,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.5, type: "spring" as any, bounce: 0.5, delay: 0.3 }}
-          className="relative h-[500px] md:h-[700px] flex justify-center items-center"
+          className="relative h-125 md:h-175 flex justify-center items-center"
         >
           {/* Main Cake Image with Floating Effect */}
           <motion.div
@@ -131,10 +131,8 @@ export function Hero() {
             <img
               src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop"
               alt="Tort de nuntă de lux"
-              className="w-full h-auto object-cover rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] border-8 border-white/50 backdrop-blur-sm"
-              referrerPolicy="no-referrer"
+              className="w-full h-auto object-cover rounded-4xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] border-8 border-white/50 backdrop-blur-sm"
             />
-            
             {/* Floating Icons around the cake */}
             <motion.div 
               animate={{ rotate: 360 }}
@@ -196,28 +194,6 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll Down Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-brand-dark/50"
-      >
-        <span className="font-sans text-xs mb-3 tracking-[0.3em] uppercase font-bold text-brand-magenta">Descoperă Magia</span>
-        <motion.a
-          href="#cakes"
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-10 h-16 border-2 border-brand-dark/20 rounded-full flex justify-center p-2 focus:outline-none focus:border-brand-magenta transition-colors"
-        >
-          <motion.div 
-            animate={{ y: [0, 20, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-brand-magenta rounded-full"
-          />
-        </motion.a>
-      </motion.div>
     </section>
   );
 }
