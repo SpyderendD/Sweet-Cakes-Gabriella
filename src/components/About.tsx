@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform, Variants } from "motion/react";
 import { useRef } from "react";
 import { Sparkles, Heart, Star, Award } from "lucide-react";
-import AboutImage from "../assets/images/logo.jpg";
 
 export function About() {
   const ref = useRef(null);
@@ -52,7 +51,7 @@ export function About() {
                 <motion.img
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 1, ease: "circOut" }}
-                  src={AboutImage}
+                  src="/assets/images/logo.jpg"
                   alt="Gabriella - Fondator Sweet Cakes"
                   className="w-full h-full object-cover rounded-[2.8rem]"
                 />

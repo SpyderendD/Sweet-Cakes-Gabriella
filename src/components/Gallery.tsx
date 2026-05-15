@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import React, { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import GalleryImage3 from "../assets/images/tort1.jpg";
 
 interface GalleryImage {
   id: number;
@@ -12,7 +11,7 @@ interface GalleryImage {
 const galleryImages: GalleryImage[] = [
   { id: 1, src: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=800&auto=format&fit=crop", category: "Nuntă" },
   { id: 2, src: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop", category: "Aniversare" },
-  { id: 3, src: GalleryImage3, category: "Botez" },
+  { id: 3, src: "/assets/images/tort1.jpg", category: "Botez" },
   { id: 4, src: "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=800&auto=format&fit=crop", category: "Nuntă" },
   { id: 5, src: "https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?q=80&w=800&auto=format&fit=crop", category: "Petit Fours" },
   { id: 6, src: "https://images.unsplash.com/photo-1602351447937-745cb720612f?q=80&w=800&auto=format&fit=crop", category: "Aniversare" },
