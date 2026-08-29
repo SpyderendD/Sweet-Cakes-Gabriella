@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Accessibility, Type, Contrast, EyeOff, X, RotateCcw, 
-  Scan, MousePointer2, Blinds, Sun, SpellCheck 
+  MousePointer2, Blinds, Sun, SpellCheck 
 } from "lucide-react";
 
 export function AccessibilityMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Stări pentru setări
+  const [isScrollVisible, setIsScrollVisible] = useState(true);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [settings, setSettings] = useState({
     largeText: false,
     highContrast: false,
@@ -19,13 +20,11 @@ export function AccessibilityMenu() {
     textSpacing: false,
   });
 
-  // Încărcăm setările salvate la pornire
   useEffect(() => {
     const saved = localStorage.getItem("accessibility_settings");
     if (saved) setSettings(JSON.parse(saved));
   }, []);
 
-  // Aplicăm clasele pe HTML la fiecare schimbare
   useEffect(() => {
     const html = document.documentElement;
     Object.entries(settings).forEach(([key, value]) => {
@@ -33,6 +32,26 @@ export function AccessibilityMenu() {
     });
     localStorage.setItem("accessibility_settings", JSON.stringify(settings));
   }, [settings]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrollVisible(false); // Ascunde butonul la scroll
+
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrollVisible(true); // Reapare după oprirea scroll-ului
+      }, 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
+  }, []);
 
   const toggleSetting = (key: keyof typeof settings) => {
     setSettings(prev => ({ ...prev, [key]: !prev[key] }));
@@ -59,7 +78,6 @@ export function AccessibilityMenu() {
     exit: { opacity: 0, scale: 0.9, y: 20 }
   };
 
-  // Helper pentru butoanele din meniu
   const AccessButton = ({ id, label, icon: Icon }: any) => {
     const active = settings[id as keyof typeof settings];
     return (
@@ -78,6 +96,9 @@ export function AccessibilityMenu() {
       </button>
     );
   };
+
+  // Forțăm meniul să rămână vizibil dacă utilizatorul îl are activ deschis
+  const shouldBeVisible = isScrollVisible || isOpen;
 
   return (
     <div className="fixed bottom-6 left-6 z-100">
@@ -120,17 +141,24 @@ export function AccessibilityMenu() {
         )}
       </AnimatePresence>
 
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ${
-            isOpen ? 'bg-brand-magenta text-white rotate-90' : 'bg-brand-dark text-white'
-        }`}
-        aria-label="Deschide meniu accesibilitate"
-      >
-        <Accessibility size={26} />
-      </motion.button>
+      <AnimatePresence>
+        {shouldBeVisible && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ${
+                isOpen ? 'bg-brand-magenta text-white rotate-90' : 'bg-brand-dark text-white'
+            }`}
+            aria-label="Deschide meniu accesibilitate"
+          >
+            <Accessibility size={26} />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

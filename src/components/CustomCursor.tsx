@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import React, { useEffect, useState, useCallback } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
@@ -8,11 +8,12 @@ export function CustomCursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { stiffness: 400, damping: 30, mass: 0.5 };
+  // Setări pentru elasticitatea dublă de tip lichid
+  const springConfig = { stiffness: 450, damping: 28, mass: 0.4 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  const outerSpringConfig = { stiffness: 200, damping: 20, mass: 0.8 };
+  const outerSpringConfig = { stiffness: 180, damping: 22, mass: 0.9 };
   const outerX = useSpring(mouseX, outerSpringConfig);
   const outerY = useSpring(mouseY, outerSpringConfig);
 
@@ -24,7 +25,7 @@ export function CustomCursor() {
 
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.closest("a, button, input, textarea, [role='button'], .interactive")) {
+    if (target.closest("a, button, input, textarea, [role='button'], .interactive, img")) {
       setIsHovering(true);
     } else {
       setIsHovering(false);
@@ -58,9 +59,9 @@ export function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-9999 hidden md:block">
-      {/* Inner dot */}
+      {/* Punct central magnetic de tip lichid */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full mix-blend-difference"
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-brand-magenta rounded-full mix-blend-difference"
         style={{
           x: cursorX,
           y: cursorY,
@@ -71,10 +72,11 @@ export function CustomCursor() {
           scale: isHovering ? 2.5 : 1,
           opacity: isVisible ? 1 : 0,
         }}
+        transition={{ type: "spring", stiffness: 350, damping: 15 }}
       />
-      {/* Outer ring */}
+      {/* Inel exterior cu lag magnetic satisfăcător */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border-2 border-white rounded-full mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 border-1.5 border-brand-magenta rounded-full mix-blend-difference"
         style={{
           x: outerX,
           y: outerY,
@@ -82,14 +84,15 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovering ? 1.8 : 1,
-          opacity: isVisible ? (isHovering ? 0 : 0.8) : 0,
-          borderWidth: isHovering ? 0 : 2,
+          scale: isHovering ? 1.6 : 1,
+          opacity: isVisible ? (isHovering ? 0 : 0.6) : 0,
+          borderWidth: isHovering ? 0 : 1.5,
         }}
+        transition={{ type: "spring", stiffness: 180, damping: 18 }}
       />
-      {/* Glow effect */}
+      {/* Aură fină de lumină (Glow Glow) pentru adâncime */}
       <motion.div
-        className="fixed top-0 left-0 w-20 h-20 bg-pastel-rose/10 rounded-full blur-xl"
+        className="fixed top-0 left-0 w-24 h-24 bg-brand-magenta/5 rounded-full blur-2xl"
         style={{
           x: cursorX,
           y: cursorY,
@@ -97,8 +100,8 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovering ? 2 : 1,
-          opacity: isVisible ? 0.4 : 0,
+          scale: isHovering ? 2.2 : 1,
+          opacity: isVisible ? 0.5 : 0,
         }}
       />
     </div>

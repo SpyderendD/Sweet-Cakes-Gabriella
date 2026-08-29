@@ -1,33 +1,95 @@
 <!doctype html>
-<html lang="ro"> <!-- Schimbat în română pentru SEO local -->
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/assets/images/logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- SEO Meta Tags -->
     <title>Sweet Cakes by Gabriella | Torturi Artizanale Târgu Mureș</title>
     <meta name="description" content="Torturi artizanale și deserturi premium în Târgu Mureș. Sweet Cakes by Gabriella creează experiențe dulci personalizate pentru nunți, botezuri și evenimente speciale." />
     <meta name="keywords" content="torturi targu mures, tort nunta targu mures, cofetarie artizanala, sweet cakes gabriella, deserturi personalizate" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sweetcakesbygabriella.ro" /> <!-- Înlocuiește cu domeniul tău final -->
     
-    <!-- Open Graph / Facebook (Important pentru că ai link de Facebook în footer) -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sweetcakesbygabriella.ro" />
     <meta property="og:title" content="Sweet Cakes by Gabriella | Arta Dulcelui" />
     <meta property="og:description" content="Transformăm visurile tale în realitate dulce. Comandă torturi personalizate în Târgu Mureș." />
-    <meta property="og:image" content="/assets/images/og-image.jpg" /> <!-- O poză frumoasă cu un tort pentru social media -->
+    <meta property="og:image" content="/assets/images/og-image.jpg" />
 
-    <!-- Import Google Fonts (Playfair pentru Serif, Montserrat pentru Sans, Great Vibes pentru Script) -->
+    <!-- Import Google Fonts (Cormorant Garamond, Great Vibes, Montserrat) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
 
+    <!-- JSON-LD Structurat pentru Local SEO (Google Search Bakery Schema) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Bakery",
+        "name": "Sweet Cakes by Gabriella",
+        "image": "https://sweetcakesbygabriella.ro/assets/images/logo.jpg",
+        "@id": "https://sweetcakesbygabriella.ro",
+        "url": "https://sweetcakesbygabriella.ro",
+        "telephone": "+40756883344",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Strada Tisei nr. 11",
+          "addressLocality": "Târgu Mureș",
+          "postalCode": "540000",
+          "addressCountry": "RO"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "12:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "10:00",
+            "closes": "14:00"
+          }
+        ]
+      }
+    </script>
+
     <style>
-      /* Prevenim scroll-ul orizontal care mai apare la animațiile motion */
+      /* 
+        TRUC DE DESIGN PENTRU OVERSCROLL SMOOTH LA BAZA PAGINII:
+        Fundalul html este setat la culoarea închisă a footerului tău.
+        Fundalul body și #root sunt setate la culoarea ta crem deschis.
+      */
+      html {
+        background-color: #110d13; /* Pune aici codul HEX exact pentru 'bg-brand-dark' din Tailwind */
+      }
+
       body {
         margin: 0;
         overflow-x: hidden;
-        background-color: #fffcf9; /* Culoarea de fundal crem pe care am ales-o */
-      }git 
+        background-color: #fffcf9; /* Culoarea de fundal crem a paginii */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #root {
+        background-color: #fffcf9;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 100vh;
+      }
     </style>
   </head>
   <body>

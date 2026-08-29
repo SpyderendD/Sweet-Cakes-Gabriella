@@ -1,58 +1,64 @@
-import { motion, AnimatePresence } from "motion/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryImage {
   id: number;
   src: string;
-  category: string;
 }
 
 const galleryImages: GalleryImage[] = [
-  { id: 1, src: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=800&auto=format&fit=crop", category: "Nuntă" },
-  { id: 2, src: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800&auto=format&fit=crop", category: "Aniversare" },
-  { id: 3, src: "/assets/images/tort1.jpg", category: "Botez" },
-  { id: 4, src: "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=800&auto=format&fit=crop", category: "Nuntă" },
-  { id: 5, src: "https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?q=80&w=800&auto=format&fit=crop", category: "Petit Fours" },
-  { id: 6, src: "https://images.unsplash.com/photo-1602351447937-745cb720612f?q=80&w=800&auto=format&fit=crop", category: "Aniversare" },
+  { id: 1, src: "/assets/images/cinnamon_rolls.jpg" },
+  { id: 2, src: "/assets/images/vitrina.jpg" },
+  { id: 3, src: "/assets/images/tort_simplu_fructe.jpg" },
+  { id: 4, src: "/assets/images/savarina.jpg" },
+  { id: 5, src: "/assets/images/tort_mare.jpg" },
+  { id: 6, src: "/assets/images/tort_regal.jpg" },
+  { id: 7, src: "/assets/images/nutella.jpg" },
+  { id: 8, src: "/assets/images/tort_dinozaur.jpg" },
+  { id: 9, src: "/assets/images/tort_fructe.jpg" },
 ];
 
-const categories = ["Toate", "Nuntă", "Botez", "Aniversare", "Petit Fours"];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.8, y: 30 },
-  show: { 
-    opacity: 1, 
-    scale: 1, 
-    y: 0,
-    transition: { type: "spring" as any, stiffness: 100 } 
-  },
-};
-
 export function Gallery() {
-  const [activeFilter, setActiveFilter] = useState("Toate");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const filteredImages = activeFilter === "Toate" 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === activeFilter);
+  const scroll = (dir: "left" | "right") => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      const isMobile = window.innerWidth < 640;
+      const cardWidth = (isMobile ? 280 : 340) + 24;
+
+      if (dir === "right") {
+        if (scrollLeft + clientWidth >= scrollWidth - 40) {
+          carouselRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          carouselRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        }
+      } else {
+        if (scrollLeft <= 10) {
+          carouselRef.current.scrollTo({ left: scrollWidth, behavior: "smooth" });
+        } else {
+          carouselRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scroll("right");
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleNext = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (selectedIndex !== null) {
       setDirection(1);
-      setSelectedIndex((selectedIndex + 1) % filteredImages.length);
+      setSelectedIndex((selectedIndex + 1) % galleryImages.length);
     }
   };
 
@@ -60,7 +66,7 @@ export function Gallery() {
     e?.stopPropagation();
     if (selectedIndex !== null) {
       setDirection(-1);
-      setSelectedIndex((selectedIndex - 1 + filteredImages.length) % filteredImages.length);
+      setSelectedIndex((selectedIndex - 1 + galleryImages.length) % galleryImages.length);
     }
   };
 
@@ -73,133 +79,117 @@ export function Gallery() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedIndex, filteredImages]);
+  }, [selectedIndex]);
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
+    enter: (dir: number) => ({
+      x: dir > 0 ? 100 : -100,
       opacity: 0,
       scale: 0.9,
-      rotateY: direction > 0 ? 15 : -15,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
       scale: 1,
-      rotateY: 0,
     },
-    exit: (direction: number) => ({
+    exit: (dir: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 100 : -100,
+      x: dir < 0 ? 100 : -100,
       opacity: 0,
       scale: 0.9,
-      rotateY: direction < 0 ? 15 : -15,
     }),
   };
 
   return (
-    <section id="gallery" className="py-24 relative overflow-hidden bg-linear-to-b from-[#fbf9f4] to-brand-light">
-      {/* 3D Decorative Elements */}
+    <section id="gallery" className="py-24 pb-44 relative overflow-hidden bg-linear-to-b from-[#fbf9f4] to-brand-light">
+      
+      {/* Decorative Blobs */}
       <motion.div 
-        animate={{ y: [0, -40, 0], rotate: [0, 45, 0], scale: [1, 1.1, 1] }}
+        animate={{ y: [0, -40, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-40 right-10 w-32 h-32 bg-linear-to-br from-pastel-pink to-pastel-rose rounded-3xl shadow-[15px_15px_40px_rgba(255,182,193,0.6)] opacity-60 z-0"
+        className="absolute top-40 right-10 w-32 h-32 bg-linear-to-br from-pastel-pink to-pastel-rose rounded-3xl opacity-60 z-0"
         style={{ borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%' }}
-        aria-hidden="true"
-      />
-      <motion.div 
-        animate={{ y: [0, 50, 0], rotate: [0, -30, 0], x: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-20 left-10 w-40 h-40 bg-linear-to-tr from-pastel-blue to-pastel-lavender rounded-full shadow-[15px_15px_50px_rgba(137,207,240,0.5)] opacity-50 z-0"
-        aria-hidden="true"
-      />
-      <motion.div 
-        animate={{ y: [0, -20, 0], rotate: [0, 180, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pastel-cream/30 rounded-full mix-blend-multiply filter blur-3xl z-0"
-        aria-hidden="true"
       />
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-micro mb-4 inline-block px-4 py-1.5 border-soft rounded-full bg-white/40 backdrop-blur-md"
-          >
-            Portofoliu Vizual
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-brand-dark mb-6 tracking-tighter"
-          >
-            Momente <span className="text-brand-magenta font-script italic">Dulci</span>
-          </motion.h2>
-          
-          {/* Filter UI */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  setActiveFilter(cat);
-                  setSelectedIndex(null);
-                }}
-                className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
-                  activeFilter === cat
-                    ? "bg-brand-magenta text-white shadow-lg"
-                    : "bg-white text-brand-dark/60 hover:bg-brand-magenta/10 hover:text-brand-magenta"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Titlu & Navigare */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="text-center md:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-micro mb-4 inline-block px-4 py-1.5 border-soft rounded-full bg-white/40 backdrop-blur-md"
+            >
+              Portofoliu Vizual
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-brand-dark tracking-tighter"
+            >
+              Momente <span className="text-brand-magenta font-script">Dulci</span>
+            </motion.h2>
+          </div>
+
+          {/* Butoane Control */}
+          <div className="flex justify-center gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scroll("left")}
+              className="w-12 h-12 rounded-full bg-white border border-brand-dark/5 flex items-center justify-center text-brand-dark shadow-md hover:bg-brand-magenta hover:text-white transition-colors cursor-pointer"
+              aria-label="Anterior"
+            >
+              <ChevronLeft size={20} />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scroll("right")}
+              className="w-12 h-12 rounded-full bg-white border border-brand-dark/5 flex items-center justify-center text-brand-dark shadow-md hover:bg-brand-magenta hover:text-white transition-colors cursor-pointer"
+              aria-label="Următor"
+            >
+              <ChevronRight size={20} />
+            </motion.button>
           </div>
         </div>
 
-        <motion.div 
-          layout
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredImages.map((img, index) => (
-              <motion.button
+        {/* CONTAINER CARUSEL CU FADE PE MARGINI */}
+        <div className="relative w-full">
+          <div 
+            ref={carouselRef}
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-8 px-8 select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mask-[linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]"
+          >
+            {galleryImages.map((img, index) => (
+              <motion.div
                 key={img.id}
-                layout
-                variants={itemVariants}
-                className="w-full relative group overflow-hidden rounded-2xl cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 focus:outline-none"
+                whileHover={{ y: -4 }}
+                className="shrink-0 w-70 sm:w-85 aspect-3/4 rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 relative group cursor-pointer snap-start"
                 onClick={() => {
                   setDirection(0);
                   setSelectedIndex(index);
                 }}
-                aria-label={`Vezi imaginea ${index + 1} din galerie`}
               >
                 <img
                   src={img.src}
-                  alt={`${img.category} ${index + 1}`}
-                  className="w-full h-80 object-cover transform transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
+                  alt=""
+                  className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  draggable="false"
                 />
-                <div className="absolute inset-0 bg-brand-magenta/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute top-4 left-4">
-                  <span className="text-[10px] font-black tracking-widest uppercase bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm text-brand-magenta">
-                    {img.category}
-                  </span>
+                <div className="absolute inset-0 bg-brand-dark/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-white bg-brand-magenta/80 px-4 py-2 rounded-full shadow-lg">Zoom</span>
                 </div>
-              </motion.button>
+              </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
-      {/* Carousel Lightbox */}
+      {/* Lightbox */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div 
@@ -207,81 +197,63 @@ export function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-60 flex items-center justify-center bg-brand-dark/95 backdrop-blur-xl p-4 perspective-1000" 
+            className="fixed inset-0 z-60 flex items-center justify-center bg-brand-dark/95 backdrop-blur-xl p-4" 
             onClick={() => setSelectedIndex(null)}
             role="dialog"
             aria-modal="true"
-            aria-label="Vizualizare imagine"
           >
             <button
-              className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-md transition-all z-50 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-md transition-all z-50 cursor-pointer"
               onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
-              aria-label="Închide galeria"
+              aria-label="Închide"
             >
               <X size={24} />
             </button>
 
             <button
-              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full backdrop-blur-md transition-all z-50 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full backdrop-blur-md transition-all z-50 cursor-pointer"
               onClick={handlePrev}
-              aria-label="Imaginea anterioară"
             >
               <ChevronLeft size={32} />
             </button>
 
-            <div className="relative w-full max-w-5xl h-[80vh] flex items-center justify-center" style={{ perspective: 1200 }}>
+            <div className="relative w-full max-w-5xl h-[80vh] flex items-center justify-center">
               <AnimatePresence custom={direction} mode="popLayout">
                 <motion.img
-                  key={filteredImages[selectedIndex].id}
+                  key={galleryImages[selectedIndex].id}
                   custom={direction}
                   variants={slideVariants}
                   initial="enter"
                   animate="center"
                   exit="exit"
                   transition={{
-                    x: { type: "spring" as any, stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.4 }
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.4 }
                   }}
-                  src={filteredImages[selectedIndex].src}
-                  alt={filteredImages[selectedIndex].category}
-                  className="absolute max-w-full max-h-full object-contain rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                  referrerPolicy="no-referrer"
+                  src={galleryImages[selectedIndex].src}
+                  alt=""
+                  className="absolute max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
                   onClick={(e) => e.stopPropagation()}
                 />
               </AnimatePresence>
             </div>
 
             <button
-              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full backdrop-blur-md transition-all z-50 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white"
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-4 rounded-full backdrop-blur-md transition-all z-50 cursor-pointer"
               onClick={handleNext}
-              aria-label="Imaginea următoare"
             >
               <ChevronRight size={32} />
             </button>
-            
-            {/* Indicators */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-50 bg-black/20 p-3 rounded-full backdrop-blur-md" role="tablist">
-              {filteredImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  role="tab"
-                  aria-selected={idx === selectedIndex}
-                  aria-label={`Mergi la imaginea ${idx + 1}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setDirection(idx > selectedIndex ? 1 : -1);
-                    setSelectedIndex(idx);
-                  }}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ${
-                    idx === selectedIndex ? "bg-white scale-125" : "bg-white/40 hover:bg-white/70"
-                  }`}
-                />
-              ))}
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* TRANZIȚIA CURBATĂ NEUNIFORMĂ SPRE TESTIMONIALS */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-0 z-20 pointer-events-none transform translate-y-px">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-[calc(100%+1.3px)] h-14 md:h-20">
+          <path d="M0,40 C180,10 320,90 500,40 C700,-10 880,100 1200,30 L1200,120 L0,120 Z" className="fill-brand-magenta-light" />
+        </svg>
+      </div>
     </section>
   );
 }
