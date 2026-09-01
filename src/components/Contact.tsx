@@ -372,7 +372,7 @@ export function Contact() {
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Locație Sweet Cakes by Gabriella"
-                className="grayscale hover:grayscale-0 transition-all duration-700 cursor-pointer"
+                className="transition-all duration-700 cursor-pointer"
               />
             </div>
             
