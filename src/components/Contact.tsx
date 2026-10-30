@@ -328,7 +328,7 @@ export function Contact() {
 
               {/* Mesaj Extra */}
               <div className="pt-4">
-                <FormField id="message" label="Alte detalii sau întrebări importante" isTextArea value={formValues.message} onChange={(v:any) => setFormValues({...formValues, message: v})} onFocus={setFocusedField} focused={focusedField} />
+                <FormField id="message" label="Alte detalii sau întrebări importante; mențiune despre Alergeni: (Produsele noastre pot conține: gluten, ouă, lactate, fructe cu coajă lemnoasă <nuci, migdale, fistic> etc.)" isTextArea value={formValues.message} onChange={(v:any) => setFormValues({...formValues, message: v})} onFocus={setFocusedField} focused={focusedField} />
               </div>
 
               {/* Buton Submit */}
