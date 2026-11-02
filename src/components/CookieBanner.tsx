@@ -67,7 +67,7 @@ export function CookieBanner() {
               <Link 
                 to="/politica-cookies" 
                 onClick={handleDecline} 
-                className="text-xs cursor-pointer font-semibold transition-colors hover:text-[#e91e63] text-[#634647] underline underline-offset-2"
+                className="text-xs cursor-pointer font-semibold transition-colors hover:text-brand-rose text-[#634647] underline underline-offset-2"
               >
                 Politica de Cookie-uri
               </Link>

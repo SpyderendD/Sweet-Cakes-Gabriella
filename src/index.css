@@ -1,224 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
   --font-script: "Dancing Script", cursive;
 
-  /* 1. Fundaluri: Calde, ca frișca și aluatul proaspăt */
-  --color-brand-light: #faf7f2;         /* Crem fin, odihnitor pentru ochi */
-  --color-brand-dark: #3b2f2f;          /* Maro ciocolată neagră (mult mai elegant decât negru) */
+  /* Culorile IDENTICE cu logo-ul */
+  --color-brand-teal: #45a298;           /* Verdele-mentă/fistic din ramă și "CAKES" */
+  --color-brand-teal-light: #eef7f6;     /* Nuanță fină Apple pentru badge-uri */
+  --color-brand-teal-dark: #2d6b64;
 
-  /* 2. Verdele Fistic din LOGO */
-  --color-brand-pistachio: #9bb291;       /* Verde fistic catifelat, nu spălăcit */
-  --color-brand-pistachio-light: #edf3eb; /* Fistic foarte deschis pentru fundaluri de carduri */
-  --color-brand-pistachio-dark: #44593c;  /* Pentru text pe fundal verde */
+  --color-brand-magenta: #d63374;        /* Rozul-zmeură din "Sweet" și "by Gabriella" */
+  --color-brand-magenta-light: #fdf0f5;  /* Roz fin Apple */
+  --color-brand-rose: #d63374;
 
-  /* 3. Rozul Zmeură (Înlocuiește magenta-ul strident!) */
-  --color-brand-magenta: #c95d77;         /* Un roz-zmeură matur, luxos, cald */
-  --color-brand-magenta-light: #faeef1;   /* Roz foarte pal */
-  --color-brand-rose: #c95d77;
-}
-
-@utility text-micro {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-brand-dark);
-}
-
-@utility mask-fade-bottom {
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-
-@utility border-soft {
-  border: 1px solid rgba(74, 59, 60, 0.08);
+  --color-brand-dark: #2c2525;          /* Ciocolată neagră (text editorial de lux) */
+  --color-brand-light: #fdfbf7;         /* Crem vanilie cald (fundalul principal) */
+  --color-brand-cream: #f4eee1;
 }
 
 @layer base {
   body {
     background-color: var(--color-brand-light);
     color: var(--color-brand-dark);
+    font-family: var(--font-sans);
     overflow-x: hidden;
+    /* Păstrăm cursorul nativ de sistem ca să nu dispară niciodată mouse-ul! */
+    cursor: default;
   }
 
-  @media (min-width: 768px) {
-    body {
-      cursor: none; /* We will use a custom cursor on desktop */
-    }
+  /* Selecție de text Apple-style cu nuanța din logo */
+  ::selection {
+    background-color: #45a298;
+    color: #ffffff;
   }
 }
 
-/* Hide default scrollbar for a cleaner look */
+/* Scrollbar discret Apple */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-brand-light);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-pastel-pink);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-pastel-rose);
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.glass-card {
-  background: rgba(255, 253, 240, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 40px 0 rgba(74, 59, 60, 0.05);
-}
-
-.text-gradient {
-  background: linear-gradient(to right, #ffb6c1, #89cff0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Accessibility Classes */
-html.access-large-text {
-  font-size: 110%;
-}
-
-html.access-high-contrast {
-  filter: contrast(1.25) saturate(1.2);
-}
-
-html.access-reduce-motion * {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-  scroll-behavior: auto !important;
-}
-
-/* Custom focus styles for better visibility */
-:focus-visible {
-  outline: 3px solid var(--color-pastel-rose);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-/* Skip to content link */
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-brand-dark);
-  color: white;
-  padding: 1rem 2rem;
-  z-index: 9999;
-  transition: top 0.3s;
-  border-radius: 0 0 1rem 1rem;
-  font-weight: bold;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
-@keyframes shine {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-  }
-  100% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
-  }
-}
-
-/* --- ACCESSIBILITATE --- */
-
-/* 1. Text Mărit */
-.access-largeText {
-  font-size: 1.15rem; /* Crește baza fontului */
-}
-.access-largeText h1 { font-size: 4rem; }
-.access-largeText h2 { font-size: 3.5rem; }
-
-/* 2. Font pentru Dislexie (Folosește un font sans-serif mai lizibil sau OpenDyslexic dacă îl ai) */
-.access-dyslexicFont * {
-  font-family: 'Comic Sans MS', 'Arial', sans-serif !important;
-  font-weight: 500 !important;
-}
-
-/* 3. Contrast Ridicat */
-.access-highContrast {
-  background-color: #000 !important;
-  color: #fff !important;
-}
-.access-highContrast .bg-white, 
-.access-highContrast .bg-[#fbf9f4] {
-  background-color: #000 !important;
-  border: 1px solid #fff !important;
-}
-.access-highContrast * {
-  color: #fff !important;
-  border-color: #fff !important;
-}
-
-/* 4. Monocrom (Grayscale) */
-.access-grayscale {
-  filter: grayscale(100%);
-}
-
-/* 5. Cursor Mărit */
-.access-bigCursor * {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='black' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z'%3E%3C/path%3E%3C/svg%3E"), auto !important;
-}
-
-/* 6. Spațiere Text */
-.access-textSpacing * {
-  letter-spacing: 0.1em !important;
-  word-spacing: 0.2em !important;
-  line-height: 1.8 !important;
-}
-
-/* 7. Reducere Mișcare */
-.access-reduceMotion * {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-}
-
-/* --- REGULI PENTRU ACCESIBILITATE --- */
-
-/* 1. Text mai mare - mărește tot site-ul proporțional */
-.access-large-text {
-  font-size: 1.2rem !important; 
-}
-
-/* 2. Contrast Ridicat - face culorile mai intense */
-.access-high-contrast {
-  filter: contrast(1.25) saturate(1.1) !important;
-}
-
-.access-high-contrast body {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
-
-/* 3. Reduce Motion - oprește toate animațiile instant */
-.access-reduce-motion *,
-.access-reduce-motion *::before,
-.access-reduce-motion *::after {
-  animation-delay: -1ms !important;
-  animation-duration: 1ms !important;
-  animation-iteration-count: 1 !important;
-  background-attachment: initial !important;
-  scroll-behavior: auto !important;
-  transition-duration: 1ms !important;
-  transition-delay: -1ms !important;
+  background: #45a298;
+  border-radius: 9999px;
 }

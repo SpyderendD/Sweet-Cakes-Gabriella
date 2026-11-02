@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
@@ -8,85 +8,56 @@ export function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Setări fluide pentru efectul magnetic
-  const springConfig = { stiffness: 500, damping: 28, mass: 0.3 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
-
-  const outerSpringConfig = { stiffness: 200, damping: 20, mass: 0.8 };
-  const outerX = useSpring(mouseX, outerSpringConfig);
-  const outerY = useSpring(mouseY, outerSpringConfig);
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-    if (!isVisible) setIsVisible(true);
-  }, [mouseX, mouseY, isVisible]);
-
-  const handleMouseOver = useCallback((e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("a, button, input, textarea, [role='button'], .cursor-pointer, img")) {
-      setIsHovering(true);
-    } else {
-      setIsHovering(false);
-    }
-  }, []);
-
-  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
-  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
+  // Fizică Apple: fluidă, fără sacadare
+  const springX = useSpring(mouseX, { stiffness: 350, damping: 28 });
+  const springY = useSpring(mouseY, { stiffness: 350, damping: 28 });
 
   useEffect(() => {
-    // Activăm cursorul doar pe dispozitive cu mouse (Desktop)
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouch) return;
+    // Activ doar pe calculatoare (nu pe telefon)
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      if (!isVisible) setIsVisible(true);
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, input, textarea, [role='button'], img, .interactive")) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
+  }, [mouseX, mouseY, isVisible]);
+
+  if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
-      {/* 1. Punctul central plin roz-magenta (Perfect vizibil) */}
-      <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-[#e91e63] rounded-full shadow-[0_0_10px_rgba(233,30,99,0.5)]"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          scale: isHovering ? 2 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      />
-
-      {/* 2. Inelul exterior elegant care urmărește mișcarea */}
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-[1.5px] border-[#e91e63]/60"
-        style={{
-          x: outerX,
-          y: outerY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          scale: isHovering ? 1.8 : 1,
-          opacity: isVisible ? (isHovering ? 0.3 : 0.7) : 0,
-          borderColor: isHovering ? "#93c572" : "rgba(233, 30, 99, 0.6)", // devine fistic la hover!
-        }}
-        transition={{ type: "spring", stiffness: 220, damping: 20 }}
-      />
-    </div>
+    <motion.div
+      className="fixed top-0 left-0 pointer-events-none z-9999 hidden md:block rounded-full border border-brand-teal/60 bg-brand-teal/10 backdrop-blur-[1px]"
+      style={{
+        x: springX,
+        y: springY,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
+      animate={{
+        width: isHovering ? 50 : 28,
+        height: isHovering ? 50 : 28,
+        borderColor: isHovering ? "#d63374" : "#45a298",
+        backgroundColor: isHovering ? "rgba(214, 51, 116, 0.08)" : "rgba(69, 162, 152, 0.08)",
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+    />
   );
 }
