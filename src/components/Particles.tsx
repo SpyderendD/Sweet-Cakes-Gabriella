@@ -12,7 +12,7 @@ interface Particle {
   type: 'circle' | 'star' | 'heart' | 'sparkle';
 }
 
-const colors = ["#ffd1dc", "#fffdd0", "#e6e6fa", "#89cff0", "#ffb6c1", "#f0e68c", "#dda0dd"];
+const colors = ["#45a298", "#fde047", "#fef3c7", "#fbcfe8", "#93c572"];
 
 export function Particles() {
   const [particles, setParticles] = useState<Particle[]>([]);
