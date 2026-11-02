@@ -56,10 +56,11 @@ export function Navbar() {
       {/* Liniile laterale - Micșorate de la w-3 la w-2 */}
       <div className="h-px w-2 bg-brand-teal/30" />
       
-      {/* "Cakes" - Micșorat la 9px/10px */}
-      <span className="font-sans text-[9px] sm:text-[10px] font-black text-brand-teal tracking-[0.3em] uppercase">
-        Cakes
-      </span>
+      <div className="h-px w-2 bg-brand-pistachio/40" />
+<span className="font-sans text-[9px] sm:text-[10px] font-black text-brand-pistachio-dark tracking-[0.3em] uppercase">
+  Cakes
+</span>
+<div className="h-px w-2 bg-brand-pistachio/40" />
       
       <div className="h-px w-2 bg-brand-teal/30" />
     </div>

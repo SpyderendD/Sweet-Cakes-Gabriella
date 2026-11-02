@@ -6,19 +6,19 @@
   --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-script: "Dancing Script", cursive;
 
-  --color-pastel-pink: #ffd1dc;
-  --color-pastel-cream: #fffdd0;
-  --color-pastel-lavender: #e6e6fa;
-  --color-pastel-blue: #89cff0;
-  --color-pastel-rose: #e91e63;
-  --color-pastel-teal: #009688;
-  
-  --color-brand-dark: #4a3b3c;
-  --color-brand-light: #f7f2ea;
-  --color-brand-magenta: #e91e63;
-  --color-brand-magenta-light: #fce4ec;
-  --color-brand-teal: #009688;
-  --color-brand-teal-light: #e0f2f1;
+  /* 1. Fundaluri: Calde, ca frișca și aluatul proaspăt */
+  --color-brand-light: #faf7f2;         /* Crem fin, odihnitor pentru ochi */
+  --color-brand-dark: #3b2f2f;          /* Maro ciocolată neagră (mult mai elegant decât negru) */
+
+  /* 2. Verdele Fistic din LOGO */
+  --color-brand-pistachio: #9bb291;       /* Verde fistic catifelat, nu spălăcit */
+  --color-brand-pistachio-light: #edf3eb; /* Fistic foarte deschis pentru fundaluri de carduri */
+  --color-brand-pistachio-dark: #44593c;  /* Pentru text pe fundal verde */
+
+  /* 3. Rozul Zmeură (Înlocuiește magenta-ul strident!) */
+  --color-brand-magenta: #c95d77;         /* Un roz-zmeură matur, luxos, cald */
+  --color-brand-magenta-light: #faeef1;   /* Roz foarte pal */
+  --color-brand-rose: #c95d77;
 }
 
 @utility text-micro {

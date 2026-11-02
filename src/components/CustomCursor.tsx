@@ -5,15 +5,15 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
 
-  // Setări pentru elasticitatea dublă de tip lichid
-  const springConfig = { stiffness: 450, damping: 28, mass: 0.4 };
+  // Setări fluide pentru efectul magnetic
+  const springConfig = { stiffness: 500, damping: 28, mass: 0.3 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  const outerSpringConfig = { stiffness: 180, damping: 22, mass: 0.9 };
+  const outerSpringConfig = { stiffness: 200, damping: 20, mass: 0.8 };
   const outerX = useSpring(mouseX, outerSpringConfig);
   const outerY = useSpring(mouseY, outerSpringConfig);
 
@@ -25,24 +25,20 @@ export function CustomCursor() {
 
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.closest("a, button, input, textarea, [role='button'], .interactive, img")) {
+    if (target.closest("a, button, input, textarea, [role='button'], .cursor-pointer, img")) {
       setIsHovering(true);
     } else {
       setIsHovering(false);
     }
   }, []);
 
-  const handleMouseLeave = useCallback(() => {
-    setIsVisible(false);
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsVisible(true);
-  }, []);
+  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
+  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
 
   useEffect(() => {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-    if (isMobile) return;
+    // Activăm cursorul doar pe dispozitive cu mouse (Desktop)
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseover", handleMouseOver);
@@ -58,10 +54,10 @@ export function CustomCursor() {
   }, [handleMouseMove, handleMouseOver, handleMouseLeave, handleMouseEnter]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-9999 hidden md:block">
-      {/* Punct central magnetic de tip lichid */}
+    <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
+      {/* 1. Punctul central plin roz-magenta (Perfect vizibil) */}
       <motion.div
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-brand-magenta rounded-full mix-blend-difference"
+        className="fixed top-0 left-0 w-3 h-3 bg-[#e91e63] rounded-full shadow-[0_0_10px_rgba(233,30,99,0.5)]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -69,14 +65,15 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovering ? 2.5 : 1,
+          scale: isHovering ? 2 : 1,
           opacity: isVisible ? 1 : 0,
         }}
-        transition={{ type: "spring", stiffness: 350, damping: 15 }}
+        transition={{ type: "spring", stiffness: 400, damping: 20 }}
       />
-      {/* Inel exterior cu lag magnetic satisfăcător */}
+
+      {/* 2. Inelul exterior elegant care urmărește mișcarea */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border-1.5 border-brand-magenta rounded-full mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-[1.5px] border-[#e91e63]/60"
         style={{
           x: outerX,
           y: outerY,
@@ -84,25 +81,11 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovering ? 1.6 : 1,
-          opacity: isVisible ? (isHovering ? 0 : 0.6) : 0,
-          borderWidth: isHovering ? 0 : 1.5,
+          scale: isHovering ? 1.8 : 1,
+          opacity: isVisible ? (isHovering ? 0.3 : 0.7) : 0,
+          borderColor: isHovering ? "#93c572" : "rgba(233, 30, 99, 0.6)", // devine fistic la hover!
         }}
-        transition={{ type: "spring", stiffness: 180, damping: 18 }}
-      />
-      {/* Aură fină de lumină (Glow Glow) pentru adâncime */}
-      <motion.div
-        className="fixed top-0 left-0 w-24 h-24 bg-brand-magenta/5 rounded-full blur-2xl"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          scale: isHovering ? 2.2 : 1,
-          opacity: isVisible ? 0.5 : 0,
-        }}
+        transition={{ type: "spring", stiffness: 220, damping: 20 }}
       />
     </div>
   );

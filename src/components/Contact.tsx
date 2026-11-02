@@ -327,9 +327,25 @@ export function Contact() {
               </div>
 
               {/* Mesaj Extra */}
-              <div className="pt-4">
-                <FormField id="message" label="Alte detalii sau întrebări importante; mențiune despre Alergeni: (Produsele noastre pot conține: gluten, ouă, lactate, fructe cu coajă lemnoasă <nuci, migdale, fistic> etc.)" isTextArea value={formValues.message} onChange={(v:any) => setFormValues({...formValues, message: v})} onFocus={setFocusedField} focused={focusedField} />
-              </div>
+<div className="pt-4 space-y-3">
+  <FormField 
+    id="message" 
+    label="Alte detalii, preferințe sau întrebări" 
+    isTextArea 
+    value={formValues.message} 
+    onChange={(v:any) => setFormValues({...formValues, message: v})} 
+    onFocus={setFocusedField} 
+    focused={focusedField} 
+  />
+
+  {/* Banner Alergeni chic în stil Fistic */}
+  <div className="p-4 rounded-2xl bg-brand-pistachio-light border border-brand-pistachio/30 flex items-start gap-3">
+    <span className="text-base">🥜</span>
+    <p className="text-[11px] leading-relaxed text-brand-pistachio-dark font-sans">
+      <strong className="font-bold">Notă privind alergenii:</strong> Produsele noastre sunt preparate artizanal și pot conține: gluten, ouă, lactate sau fructe cu coajă lemnoasă (nuci, alune, migdale, fistic). Te rugăm să ne menționezi orice alergie în detaliile comenzii.
+    </p>
+  </div>
+</div>
 
               {/* Buton Submit */}
               <motion.button
