@@ -30,7 +30,7 @@
     "vite": "^6.2.0"
   },
   "engines": {
-    "node": "22.23.4"
+    "node": "26.13.0"
   },
   
   "devDependencies": {
