@@ -1,93 +1,214 @@
 <!doctype html>
-<html lang="ro">
+<html lang="ro" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="UTF-8" />
-   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- SEO Meta Tags -->
-    <title>Sweet Cakes by Gabriella | Torturi Artizanale Târgu Mureș</title>
-    <meta name="description" content="Torturi artizanale și deserturi premium în Târgu Mureș. Sweet Cakes by Gabriella creează experiențe dulci personalizate pentru nunți, botezuri și evenimente speciale." />
-    <meta name="keywords" content="torturi targu mures, tort nunta targu mures, cofetarie artizanala, sweet cakes gabriella, deserturi personalizate" />
-    <meta name="robots" content="index, follow" />
+    <!-- 1. FAVICON & ICONIȚE (Căile corecte către folderul public/assets/images/) -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+
+    <meta name="theme-color" content="#2c2525" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- 2. SEO META TAGS PRINCIPALE -->
+    <title>Sweet Cakes by Gabriella | Torturi la Comandă & Prăjituri Artizanale Târgu Mureș</title>
+    <meta
+      name="title"
+      content="Sweet Cakes by Gabriella | Torturi la Comandă & Prăjituri Artizanale Târgu Mureș"
+    />
+    <meta
+      name="description"
+      content="Laborator artizanal în Târgu Mureș (Strada Tisei 11). Creăm torturi personalizate pentru nunți, botezuri, aniversări, savarine cu frișcă naturală, eclere și cinnamon rolls proaspete."
+    />
+    <meta
+      name="keywords"
+      content="torturi targu mures, tort nunta targu mures, cofetarie artizanala targu mures, candy bar botez targu mures, sweet cakes gabriella, prajituri targu mures, savarine, eclere, cinnamon rolls targu mures, torturi personalizate mures"
+    />
+    <meta name="author" content="Gabriella - Sweet Cakes by Gabriella" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://sweet-cakes-gabriella.vercel.app/" />
-    
-    <!-- Open Graph / Facebook -->
+
+    <!-- 3. LOCAL SEO & COORDONATE GEOGRAFICE (Google Maps / Local Pack) -->
+    <meta name="geo.region" content="RO-MS" />
+    <meta name="geo.placename" content="Târgu Mureș" />
+    <meta name="geo.position" content="46.541335;24.576882" />
+    <meta name="ICBM" content="46.541335, 24.576882" />
+
+    <!-- 4. OPEN GRAPH / FACEBOOK / WHATSAPP PREVIEW (URL COMPLET) -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta property="og:site_name" content="Sweet Cakes by Gabriella" />
     <meta property="og:url" content="https://sweet-cakes-gabriella.vercel.app/" />
-    <meta property="og:title" content="Sweet Cakes by Gabriella | Arta Dulcelui" />
-    <meta property="og:description" content="Transformăm visurile tale în realitate dulce. Comandă torturi personalizate în Târgu Mureș." />
-    <meta property="og:image" content="/assets/images/og-image.jpg" />
+    <meta
+      property="og:title"
+      content="Sweet Cakes by Gabriella | Arta Dulcelui în Târgu Mureș"
+    />
+    <meta
+      property="og:description"
+      content="Unde imaginația întâlnește gustul rafinat. Torturi spectaculoase de nuntă, candy bar tematic și vitrină cu prăjituri artizanale zilnice pe Strada Tisei nr. 11."
+    />
+    <meta
+      property="og:image"
+      content="https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:image:alt" content="Sigla Sweet Cakes by Gabriella Târgu Mureș" />
 
-    <!-- Import Google Fonts (Cormorant Garamond, Great Vibes, Montserrat) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- 5. TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://sweet-cakes-gabriella.vercel.app/" />
+    <meta
+      name="twitter:title"
+      content="Sweet Cakes by Gabriella | Torturi Artizanale Târgu Mureș"
+    />
+    <meta
+      name="twitter:description"
+      content="Torturi de nuntă, candy bar și prăjituri artizanale proaspete în Târgu Mureș."
+    />
+    <meta
+      name="twitter:image"
+      content="https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg"
+    />
 
-    <!-- JSON-LD Structurat pentru Local SEO (Google Search Bakery Schema) -->
+    <!-- 6. OPTIMIZARE VITEZĂ (DNS Preconnect Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 7. SCHEMA.ORG ULTRA-COMPLET (Google Bakery & LocalBusiness Rich Snippets) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Bakery",
+        "@type": ["Bakery", "LocalBusiness"],
+        "@id": "https://sweet-cakes-gabriella.vercel.app/#bakery",
         "name": "Sweet Cakes by Gabriella",
-        "image": "https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg",
-        "@id": "https://sweet-cakes-gabriella.vercel.app/",
+        "alternateName": "Sweet Cakes Târgu Mureș",
+        "description": "Cofetărie artizanală și atelier de creație dulce în Târgu Mureș. Specializați în torturi de nuntă personalizate, candy bar botez, savarine cu frișcă naturală, eclere și cinnamon rolls.",
         "url": "https://sweet-cakes-gabriella.vercel.app/",
+        "image": [
+          "https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg",
+          "https://sweet-cakes-gabriella.vercel.app/assets/images/vitrina.jpg"
+        ],
+        "logo": "https://sweet-cakes-gabriella.vercel.app/assets/images/logo.jpg",
         "telephone": "+40756883344",
         "priceRange": "$$",
+        "currenciesAccepted": "RON",
+        "paymentAccepted": "Cash, Card, Transfer Bancar",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Strada Tisei nr. 11",
+          "streetAddress": "Strada Tisei, nr. 11",
           "addressLocality": "Târgu Mureș",
+          "addressRegion": "Mureș",
           "postalCode": "540000",
           "addressCountry": "RO"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 46.541335,
+          "longitude": 24.576882
+        },
+        "hasMap": "https://maps.google.com/?q=Strada+Tisei+11+Targu+Mures",
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Târgu Mureș"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Județul Mureș"
+          }
+        ],
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
             "opens": "12:00",
             "closes": "18:00"
           },
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": "Saturday",
+            "dayOfWeek": ["Saturday"],
             "opens": "10:00",
             "closes": "14:00"
           }
-        ]
+        ],
+        "sameAs": [
+          "https://www.facebook.com/p/Sweet-Cakes-by-Gabriella-100063574656863/"
+        ],
+        "servesCuisine": "Cofetărie Artizanală, Patiserie Franceză, Torturi Personalizate",
+        "founder": {
+          "@type": "Person",
+          "name": "Gabriella"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicii & Deserturi Artizanale",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Torturi de Nuntă Elegante"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Candy Bar Botez & Evenimente"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Torturi Personalizate Copii & Aniversări"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Cinnamon Rolls Proaspete & Savarine cu Frișcă Naturală"
+              }
+            }
+          ]
+        }
       }
     </script>
 
     <style>
-      /* 
-        TRUC DE DESIGN PENTRU OVERSCROLL SMOOTH LA BAZA PAGINII:
-        Fundalul html este setat la culoarea închisă a footerului tău.
-        Fundalul body și #root sunt setate la culoarea ta crem deschis.
-      */
       html {
-        background-color: #110d13; /* Pune aici codul HEX exact pentru 'bg-brand-dark' din Tailwind */
+        background-color: #2c2525;
       }
 
       body {
         margin: 0;
         overflow-x: hidden;
-        background-color: #fffcf9; /* Culoarea de fundal crem a paginii */
+        background-color: #fdfbf7;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
       #root {
-        background-color: #fffcf9;
+        background-color: #fdfbf7;
         display: flex;
         flex-direction: column;
         flex: 1;
